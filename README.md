@@ -17,19 +17,19 @@ Each team is responsible for building and deploying a functional MUD server, mig
 ### Server
 
 
-#### 1. Learn Flask
+#### 1. Learn Flask (Done)
 
 In Sprint 1, you learned a new language (Python) and built an interactive world with it. During this project, you will be learning a new REST API framework (Flask) and building a more interesting world.
 
 
-#### 2. Implement Login
+#### 2. Implement Login (Done)
 
 You have been given code for Registration but will need to implement login and token authentication in Flask.
 
 Token authentication should be identical to the Django version of the project. As in, registration and login should return 40-character authentication key which must be passed in the header of every subsequent authenticated API request.
 
 
-#### 3. Implement Item classes
+#### 3. Implement Item classes (Partially completed)
 
 Similar to your Intro to Python adventure project, the Item base class should be able to be picked up and dropped, bought and sold. You are required to have at least 2 types of Item subclasses.
 
@@ -40,19 +40,19 @@ Suggestions for item subclasses:
   - Weapon
 
 
-#### 4. Implement Store
+#### 4. Implement Store (Partially done)
 
 You must create a store where items can be bought and sold.
 
 
-#### 5. Implement Pusher Websockets
+#### 5. Implement Pusher Websockets (To do)
 
 Your server should create websocket connections with each client upon initialization and broadcast messages where appropriate.
 
 This NOT a stretch goal and is required for MVP.
 
 
-#### 6. Create an interesting world on the server
+#### 6. Create an interesting world on the server (To do)
 
 You will need to create more rooms and descriptions to build a unique, traversable world that your client apps can interact with via REST API calls.
 
@@ -61,7 +61,7 @@ Your world should contain a MINIMUM of 100 connected rooms.
 You will also need to implement a GET `rooms` API endpoint for clients to fetch all rooms to display a map on the frontend.
 
 
-#### 7. Deploy a Flask LambdaMUD server
+#### 7. Deploy a Flask LambdaMUD server (To do)
 
 Research and deploy your Flask server on Heroku.
 
