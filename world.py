@@ -81,17 +81,4 @@ class World:
 
 
 
-# testing stuff
 
-store = Store()
-
-store.buy()
-
-store.sell()
-
-player = Player('Quinton', Room("Foyer", """Dim light filters in from the south. Dusty
-        passages run north and east.""", 2, 1, 2), '123')
-
-player.pick_up()
-
-player.drop()
