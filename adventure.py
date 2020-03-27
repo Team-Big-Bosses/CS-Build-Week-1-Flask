@@ -316,22 +316,12 @@ def rooms():
     return jsonify(response), 200
 
 
-# @app.route('/api/adv/say', methods=['POST'])
-# def say():
-#     player = get_player_by_header(world, request.headers.get("Authorization"))
-#     if player is None:
-#         response = {'error': "Malformed auth header"}
-#         return response, 500
-
-#     try:
-#         values = request.get_json()
-#         message = values.get('message')
-#         pusher.trigger('chat-channel', 'new-message', {'username': player.username, 'message': message})
-#         return jsonify({'pusher': f'{player.username} says: "{message}"'}), 200
-#     except:
-#         return jsonify({'error': 'failure'}), 500
-
-
+@app.route('/api/adv/grid', methods=['GET'])
+def grid():
+    # IMPLEMENT THIS
+    response = {'grid': world.grid}
+    return jsonify(response), 200
+    
 # Run the program on port 5000
 if __name__ == '__main__':
     app.run(debug=False, port=5000)

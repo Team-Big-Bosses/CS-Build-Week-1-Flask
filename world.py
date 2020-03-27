@@ -321,4 +321,4 @@ class World:
         return str
 
 # world = World()
-# world.print_rooms()
+# print(world.grid)
