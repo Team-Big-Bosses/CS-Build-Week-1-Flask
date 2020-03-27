@@ -319,7 +319,7 @@ def rooms():
 @app.route('/api/adv/grid', methods=['GET'])
 def grid():
     # IMPLEMENT THIS
-    response = {'grid': world.grid}
+    response = {'grid': world.get_matrix()}
     return jsonify(response), 200
     
 # Run the program on port 5000
