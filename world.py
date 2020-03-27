@@ -30,7 +30,7 @@ item_list = [Item('Pile of Gold', 'Contains several coins', 20),
 class World:
     def __init__(self):
         self.starting_room = None
-        self.rooms = {}
+        self.rooms = [None] * 20
         self.players = {}
         self.init_grid()
         self.create_world(100)
@@ -320,5 +320,35 @@ class World:
 
         return str
 
+    def init_rooms(self):
+        for i in range(len(self.rooms)):
+            self.rooms[i] = [None] * 20
+
+    def get_matrix(self):
+        self.init_rooms()
+        grid = self.grid
+        for lists in grid:
+            for room in lists:
+                if room:
+                    # Get room info
+                    r_id = room.id
+                    n_to = room.n_to
+                    s_to = room.s_to
+                    e_to = room.e_to
+                    w_to = room.w_to
+                    directions = {'n': n_to, 's': s_to, 'e': e_to, 'w': w_to}
+                    exits = {}
+                    for exit in directions:
+                        if directions[exit]:
+                            exits[exit] = True
+                        else:
+                            exits[exit] = False
+                    x = room.x
+                    y = room.y
+                    
+                    self.rooms[y][x] = {'id': r_id, 'exits': exits, 'coordinates': (x, y)}
+
+        return self.rooms
+                    
 # world = World()
-# print(world.grid)
+# world.get_matrix()
