@@ -128,8 +128,8 @@ class World:
                         rooms_list.append(room)
                         past_rooms_list.append([x,y])
                         self.grid[y][x] = room
-                        if previous_room is not None:
-                            previous_room.connect_rooms(room_direction, room)
+                        # if previous_room is not None:
+                        #     previous_room.connect_rooms(room_direction, room)
                         previous_room = room
                     else:
                         direction_list.remove(1)
@@ -149,8 +149,8 @@ class World:
                         rooms_list.append(room)
                         past_rooms_list.append([x,y])
                         self.grid[y][x] = room
-                        if previous_room is not None:
-                            previous_room.connect_rooms(room_direction, room)
+                        # if previous_room is not None:
+                        #     previous_room.connect_rooms(room_direction, room)
                         previous_room = room
                         
                     else:
@@ -171,8 +171,8 @@ class World:
                         rooms_list.append(room)
                         past_rooms_list.append([x,y])
                         self.grid[y][x] = room
-                        if previous_room is not None:
-                            previous_room.connect_rooms(room_direction, room)
+                        # if previous_room is not None:
+                        #     previous_room.connect_rooms(room_direction, room)
                         previous_room = room
  
                     else:
@@ -193,8 +193,8 @@ class World:
                         rooms_list.append(room)
                         past_rooms_list.append([x,y])
                         self.grid[y][x] = room
-                        if previous_room is not None:
-                            previous_room.connect_rooms(room_direction, room)
+                        # if previous_room is not None:
+                        #     previous_room.connect_rooms(room_direction, room)
                         previous_room = room
                       
                     else:
@@ -206,20 +206,24 @@ class World:
             for x in range(self.width):
                 if(self.grid[y][x] is not None):
                     # print(self.width, '+', self.height)
-                    if ((y+1) < self.height and (y-1) >= 0 and (x+1) < self.width and (x-1) >= 0):
-                        if (self.grid[y+1][x] is not None):
+                    # if ((y) < 10 and (y-1) >= 0 and (x) < 10 and (x-1) >= 0):
+                    if (y + 1) < self.height:
+                        if (str(type(self.grid[y+1][x])) == "<class 'room.Room'>"):
                             room = self.grid[y][x]
                             north = self.grid[y+1][x]
                             room.connect_rooms('n', north)
-                        if (self.grid[y-1][x] is not None):
+                    if (y - 1) > 0:
+                        if (str(type(self.grid[y-1][x])) == "<class 'room.Room'>"):
                             room = self.grid[y][x]
                             south = self.grid[y-1][x]
                             room.connect_rooms('s', south)
-                        if (self.grid[y][x+1] is not None):
+                    if (x + 1) < self.width:
+                        if (str(type(self.grid[y][x+1])) == "<class 'room.Room'>"):
                             room = self.grid[y][x]
                             east = self.grid[y][x+1]
                             room.connect_rooms('e', east)
-                        if (self.grid[y][x-1] is not None):
+                    if (x - 1) > 0:
+                        if (str(type(self.grid[y][x-1])) == "<class 'room.Room'>"):
                             room = self.grid[y][x]
                             west = self.grid[y][x-1]
                             room.connect_rooms('w', west)
@@ -258,7 +262,7 @@ class World:
                     room.description = levels['description'][11]
 
             # treasure rooms - Treasure room in N and S(silver) and E and W (Bronze)
-            if (exits == ['n'] or exits == ['s'] or exits == ['s'] or exits == ['w']):
+            if (exits == ['n'] or exits == ['s'] or exits == ['e'] or exits == ['w']):
                 if exits == ['n'] or exits == ['s']:
                     room.name = levels['name'][0]
                     room.description = levels['name'][0]
@@ -350,5 +354,5 @@ class World:
 
         return self.rooms
                     
-# world = World()
-# world.get_matrix()
+world = World()
+print(world.get_matrix())
