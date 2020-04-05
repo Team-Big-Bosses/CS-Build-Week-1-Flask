@@ -7,9 +7,9 @@
 - **[Directions](#directions)**<br>
 
 ## Contributors
-| [Quinton McNamee](https://github.com/QuintonMcNamee) | [Samuel Hepner](https://github.com/SamH3pn3r) | [Karen Li](https://github.com/karenjli) |  
+| [Quinton McNamee](https://github.com/QuintonMcNamee) | [Samuel Hepner](https://github.com/Samuelhepner) | [Karen Li](https://github.com/karenjli) |  
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-| <img src='https://github.com/QuintonMcNamee.png' width='200'/> | <img src='https://github.com/SamH3pn3r.png' width = "200" /> | <img src='https://github.com/karenjli.png' width = "200" /> | 
+| <img src='https://github.com/QuintonMcNamee.png' width='200'/> | <img src='https://github.com/Samuelhepner.png' width = "200" /> | <img src='https://github.com/karenjli.png' width = "200" /> | 
 |[<img src='https://github.com/favicon.ico' width="15">](https://github.com/QuintonMcNamee) | [<img src="https://github.com/favicon.ico" width="15">](https://github.com/SamH3pn3r) | [<img src="https://github.com/favicon.ico" width="15">](https://github.com/karenjli) |
 
 ## API Documentation
