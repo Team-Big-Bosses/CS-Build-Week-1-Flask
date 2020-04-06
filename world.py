@@ -235,7 +235,7 @@ class World:
             # print()
             # # store rooms - Stores should be in NESW, ES, NE, WS, NW
             if (exits == ['e', 'n', 's', 'w'] or exits == ['e', 's'] or exits == ['e', 'n'] or exits == ['s', 'w'] or exits == ['n', 'w']):
-                room.store = Store(stock = [random.choice(item_list), random.choice(item_list)], vault = random.randint(50, 100)) 
+                room.store = Store(stock = [random.choice(item_list), random.choice(item_list)]) 
                 if exits == ['e', 'n', 's', 'w']:
                     room.name = levels['name'][8]
                     room.description = levels['description'][8]

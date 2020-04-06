@@ -1,6 +1,6 @@
 from items import Item, Food, Weapon
 
 class Store:
-    def __init__(self, vault = 1000000, stock=[Weapon('Short sword', 'It\'s sharp.', 10, 'Sword', 5), Food('Stale bread', 'It\'s stale.', 1, 'Bread', 2)]):
+    def __init__(self, stock=[Weapon('Short sword', 'It\'s sharp.', 10, 'Sword', 5), Food('Stale bread', 'It\'s stale.', 1, 'Bread', 2)]):
         self.stock = stock
-        self.vault = vault
+        self.vault = 1000000
