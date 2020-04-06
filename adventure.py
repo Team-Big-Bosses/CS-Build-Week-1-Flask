@@ -172,7 +172,7 @@ def take_item():
             return jsonify(f"You already have a {item.name}"), 500
     for item in items:
         if item.name.lower() == values['item_name'].lower():
-            player.inventory.append(item)
+            player.add_to_inventory(item)
             # print('THIS IS THE ITEM: ', item.name)
             player.current_room.items.remove(item)
             return jsonify(f"You have picked up {item.name}"), 200
