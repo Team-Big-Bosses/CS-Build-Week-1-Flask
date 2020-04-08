@@ -3,13 +3,13 @@ import uuid
 from items import Item, Food, Weapon
 
 class Player:
-    def __init__(self, name, starting_room, password_hash, coin_purse = 50):
+    def __init__(self, name, starting_room, password_hash):
         self.username = name
         self.current_room = starting_room
         self.auth_key = Player.__generate_auth_key()
         self.password_hash = password_hash
         self.uuid = uuid.uuid4
-        self.coin_purse = coin_purse
+        self.coin_purse = 0
         self.inventory = []
      
     def __generate_auth_key():
