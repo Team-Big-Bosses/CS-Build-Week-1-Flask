@@ -33,82 +33,42 @@ def after_request(response):
     return response
 
 
-def get_player_by_header(world, auth_header):
-    if auth_header is None:
-        return None
-
-    auth_key = auth_header.split(" ")
-    if auth_key[0] != "Token" or len(auth_key) != 2:
-        return None
-
-    player = world.get_player_by_auth(auth_key[1])
+def get_player_by_ip(world, user):
+    player = world.get_player_by_username(user)
     return player
 
-
-@app.route('/api/registration/', methods=['POST'])
-def register():
-    # if request.method == 'OPTIONS':
-    #     response = make_response()
-    #     response.headers['Access-Control-Allow-Origin'] = '*'
-    #     response.headers['Access-Control-Allow-Headers'] = '*'
-    #     response.headers['Access-Control-Allow-Methods'] = '*'
-    #     return response, 200
-
-    values = request.get_json()
-    required = ['username', 'password1', 'password2']
-
-    if not all(k in values for k in required):
-        response = {'message': "Missing Values"}
-        return jsonify(response), 400
-
-    username = values.get('username')
-    password1 = values.get('password1')
-    password2 = values.get('password2')
-
-    # response = make_response(world.add_player(username, password1, password2))
-    # response.headers['Access-Control-Allow-Origin'] = '*'
-
-    response = world.add_player(username, password1, password2)
-
-    if 'error' in response:
-        return jsonify("Registration error", response), 500
-    else:
-        # pusher.trigger(
-        #     'world', 'joined', {'pusher': f"{username} has joined the game"}
-        # )
-        return jsonify(response), 200
 
 # test endpoint
 @app.route('/', methods=['GET'])
 def test_method():
-    return 'Welcome Adventurer'
-
-@app.route('/api/login/', methods=['POST'])
-def login():
-    # IMPLEMENT THIS
-    values = request.get_json()
-    required = ['username', 'password']
-
-    if not all(k in values for k in required):
-        response = {'message': "Missing Values"}
-        return jsonify(response), 400
-
-    username = values.get('username')
-    password = values.get('password')
-
-    response = world.authenticate_user(username, password)
-    if response is None:
-        return jsonify(response), 500
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        return request.environ['REMOTE_ADDR']
     else:
-        # pusher.trigger(
-        #     'world', 'joined', {'pusher': f"{username} has joined the game"}
-        # )
-        return jsonify(response), 200
+        return request.environ['HTTP_X_FORWARDED_FOR']
 
+
+@app.route('/api/instantiate/', methods=['POST'])
+def instantiate():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    response = world.add_player(user)
+
+    if 'error' in response:
+        return jsonify("Registration error", response), 500
+    else:
+        return jsonify(response), 200
 
 @app.route('/api/adv/init/', methods=['GET'])
 def init():
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500
@@ -126,7 +86,13 @@ def init():
 
 @app.route('/api/adv/move/', methods=['POST'])
 def move():
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+
     if player is None:
         response = {'error': "Malformed auth header"}
         return jsonify(response), 500
@@ -159,7 +125,13 @@ def take_item():
     #   "item_name":"Torch"
     # }
 
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500
@@ -182,7 +154,13 @@ def drop_item():
     # {
     #   "item":"{name: "Short sword", price: 5, description: "It's sharp."}"
     # }
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500
@@ -201,7 +179,13 @@ def drop_item():
 @app.route('/api/adv/inventory/', methods=['GET'])
 def inventory():
     # IMPLEMENT THIS
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500
@@ -227,7 +211,13 @@ def inventory():
 @app.route('/api/adv/buy/', methods=['POST'])
 def buy_item():
     # IMPLEMENT THIS
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500
@@ -254,7 +244,13 @@ def buy_item():
 @app.route('/api/adv/sell/', methods=['POST'])
 def sell_item():
     # IMPLEMENT THIS
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500
@@ -280,7 +276,13 @@ def sell_item():
 
 @app.route('/api/adv/store', methods=['GET'])
 def check_store():
-    player = get_player_by_header(world, request.headers.get("Authorization"))
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        user = request.environ['REMOTE_ADDR']
+    else:
+        user = request.environ['HTTP_X_FORWARDED_FOR']
+
+    player = get_player_by_ip(world, user)
+    
     if player is None:
         response = {'error': "Malformed auth header"}
         return response, 500

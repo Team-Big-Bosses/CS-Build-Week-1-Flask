@@ -36,40 +36,19 @@ class World:
         self.create_world(100)
         self.password_salt = bcrypt.gensalt()
 
-    def add_player(self, username, password1, password2):
-        if password1 != password2:
-            return {'error': "Passwords do not match"}
-        elif len(username) <= 2:
-            return {'error': "Username must be longer than 2 characters"}
-        elif len(password1) <= 5:
-            return {'error': "Password must be longer than 5 characters"}
-        elif self.get_player_by_username(username) is not None:
-            return {'error': "Username already exists"}
-        password_hash = bcrypt.hashpw(password1.encode(), self.password_salt)
-        player = Player(username, self.starting_room, password_hash)
-        self.players[player.auth_key] = player
-        return {'key': player.auth_key}
-
-    def get_player_by_auth(self, auth_key):
-        if auth_key in self.players:
-            return self.players[auth_key]
-        else:
-            return None
+    def add_player(self, user):
+        if self.get_player_by_username(user) is not None:
+            return {'error': "User already exists"}
+        
+        player = Player(user, self.starting_room)
+        self.players[user] = player
+        
+        return {'user': user}
 
     def get_player_by_username(self, username):
-        for auth_key in self.players:
-            if self.players[auth_key].username == username:
-                return self.players[auth_key]
-        return None
-
-    def authenticate_user(self, username, password):
-        user = self.get_player_by_username(username)
-        print('user: ', user)
-        if user is None:
-            return None
-        password_hash = bcrypt.hashpw(password.encode() ,self.password_salt)
-        if user.password_hash == password_hash:
-            return {'key': user.auth_key}
+        for username in self.players:
+            if self.players[username].username == username:
+                return self.players[username]
         return None
 
     def init_grid(self):
