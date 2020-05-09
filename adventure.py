@@ -46,10 +46,7 @@ def test_method():
 
 @app.route('/api/instantiate/', methods=['POST'])
 def instantiate():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     response = world.add_player(user)
 
@@ -60,10 +57,7 @@ def instantiate():
 
 @app.route('/api/adv/init/', methods=['GET'])
 def init():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
     if player is None:
@@ -84,10 +78,7 @@ def init():
 
 @app.route('/api/adv/move/', methods=['POST'])
 def move():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
 
@@ -123,10 +114,7 @@ def take_item():
     #   "item_name":"Torch"
     # }
 
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
 
@@ -152,10 +140,7 @@ def drop_item():
     # {
     #   "item":"{name: "Short sword", price: 5, description: "It's sharp."}"
     # }
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
 
@@ -177,10 +162,7 @@ def drop_item():
 @app.route('/api/adv/inventory/', methods=['GET'])
 def inventory():
     # IMPLEMENT THIS
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
 
@@ -209,10 +191,7 @@ def inventory():
 @app.route('/api/adv/buy/', methods=['POST'])
 def buy_item():
     # IMPLEMENT THIS
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
 
@@ -242,10 +221,7 @@ def buy_item():
 @app.route('/api/adv/sell/', methods=['POST'])
 def sell_item():
     # IMPLEMENT THIS
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
 
@@ -274,10 +250,7 @@ def sell_item():
 
 @app.route('/api/adv/store', methods=['GET'])
 def check_store():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        user = request.environ['REMOTE_ADDR']
-    else:
-        user = request.environ['HTTP_X_FORWARDED_FOR']
+    user = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     player = get_player_by_ip(world, user)
     
