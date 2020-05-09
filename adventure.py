@@ -41,10 +41,7 @@ def get_player_by_ip(world, user):
 # test endpoint
 @app.route('/', methods=['GET'])
 def test_method():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        return request.environ['REMOTE_ADDR']
-    else:
-        return request.environ['HTTP_X_FORWARDED_FOR']
+    return request.headers.get('X-Forwarded-For', request.remote_addr)
 
 
 @app.route('/api/instantiate/', methods=['POST'])
