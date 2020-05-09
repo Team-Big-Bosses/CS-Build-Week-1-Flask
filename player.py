@@ -3,8 +3,8 @@ import uuid
 from items import Item, Food, Weapon
 
 class Player:
-    def __init__(self, name, starting_room):
-        self.username = name
+    def __init__(self, ip, starting_room):
+        self.username = ip
         self.current_room = starting_room
         self.uuid = uuid.uuid4
         self.coin_purse = 0

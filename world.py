@@ -36,20 +36,20 @@ class World:
         self.create_world(100)
         self.password_salt = bcrypt.gensalt()
 
-    def add_player(self, user):
-        if self.get_player_by_username(user) is not None:
+    def add_player(self, ip):
+        if self.get_player_by_ip(ip) is not None:
             return {'error': "User already exists"}
         
-        player = Player(user, self.starting_room)
-        self.players[user] = player
+        player = Player(ip, self.starting_room)
+        self.players[ip] = player
         
-        return {'user': user}
+        return {'user': ip}
 
-    def get_player_by_username(self, username):
-        for username in self.players:
-            if self.players[username].username == username:
-                return self.players[username]
-        return None
+    def get_player_by_ip(self, ip):
+        if ip in self.players:
+            return self.players[ip]
+        else:
+            return None
 
     def init_grid(self):
         self.height = 20

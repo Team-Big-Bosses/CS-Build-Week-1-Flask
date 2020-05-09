@@ -34,7 +34,7 @@ def after_request(response):
 
 
 def get_player_by_ip(world, user):
-    player = world.get_player_by_username(user)
+    player = world.get_player_by_ip(user)
     return player
 
 
