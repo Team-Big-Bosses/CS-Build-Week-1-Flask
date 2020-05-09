@@ -74,6 +74,7 @@ def init():
         return response, 500
 
     response = {
+        'IP': player.username,
         'id': player.current_room.id,
         'title': player.current_room.name,
         'description': player.current_room.description,
